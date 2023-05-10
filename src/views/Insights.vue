@@ -64,9 +64,6 @@ export default {
 
   data() {
     return {
-      info: null,
-      loading: true,
-      errored: false,
       tiles: [
         {
           id: 1,
@@ -113,40 +110,6 @@ export default {
         },
       ],
     };
-  },
-  mounted() {
-    axios
-      .get("https://api.coindesk.com/v1/bpi/currentprice.json")
-      .then((response) => {
-        this.info = response.data.bpi;
-
-        const labels = [];
-        const data = [];
-
-        for (const currencyCode in response.data.bpi) {
-          labels.push(currencyCode);
-          data.push(response.data.bpi[currencyCode].rate_float);
-        }
-
-        const doughnutTile = this.tiles.find(
-          (tile) => tile.type === "doughnut"
-        );
-
-        if (doughnutTile) {
-          doughnutTile.data.labels = labels;
-          doughnutTile.data.datasets[0].data = data;
-          doughnutTile.data.datasets[0].backgroundColor = [
-            "#e896cb",
-            "#424242",
-            "#828282",
-          ];
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-        this.errored = true;
-      })
-      .finally(() => (this.loading = false));
   },
 
   methods: {
