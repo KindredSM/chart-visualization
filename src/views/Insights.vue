@@ -3,28 +3,26 @@
     <h1>Bitcoin Price Index</h1>
 
     <div class="grid">
-      <keep-alive>
-        <draggable
-          class="tile-list"
-          :list="tiles"
-          :item-key="'id'"
-          @update:modelValue="updateTiles">
-          <template #item="{ element }">
-            <template v-if="element.type === 'doughnut'">
-              <DoughnutTile
-                :key="element.id"
-                :data="element.data"
-                :options="element.options" />
-            </template>
-            <template v-else-if="element.type === 'bar'">
-              <BarTile
-                :key="element.id"
-                :data="element.data"
-                :options="element.options" />
-            </template>
+      <draggable
+        class="tile-list"
+        :list="tiles"
+        :item-key="'id'"
+        @update:modelValue="updateTiles">
+        <template #item="{ element }">
+          <template v-if="element.type === 'doughnut'">
+            <DoughnutTile
+              :key="element.id"
+              :data="element.data"
+              :options="element.options" />
           </template>
-        </draggable>
-      </keep-alive>
+          <template v-else-if="element.type === 'bar'">
+            <BarTile
+              :key="element.id"
+              :data="element.data"
+              :options="element.options" />
+          </template>
+        </template>
+      </draggable>
     </div>
   </div>
 </template>
@@ -65,6 +63,7 @@ export default {
         {
           id: 2,
           type: "bar",
+
           data: {
             labels: ["Sager", "Alienware"],
             datasets: [
@@ -106,7 +105,7 @@ export default {
 <style lang="scss" scoped>
 .grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 20px;
 }
 
